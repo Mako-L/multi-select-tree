@@ -1,5 +1,4 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'production',
@@ -9,11 +8,6 @@ module.exports = {
     libraryTarget: 'commonjs2',
   },
   entry: './src/index.tsx',
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'style.css',
-    }),
-  ],
   externals: [
     {
       react: 'react',
@@ -36,14 +30,8 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.s?[ac]ss$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
-          'css-loader',
-          'sass-loader',
-        ],
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },

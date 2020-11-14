@@ -18,7 +18,7 @@ import { Provider as StyletronProvider } from 'styletron-react';
 import { LightTheme, BaseProvider, styled, DarkTheme } from 'baseui';
 
 // css
-import './multiSelectTree.scss';
+import './multiSelectTree.css';
 
 const engine = new Styletron();
 const Centered = styled('div', {
