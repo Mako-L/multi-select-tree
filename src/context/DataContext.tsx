@@ -36,7 +36,7 @@ const DataProvider = (props: any) => {
       selectedValues.add(option.value);
     });
 
-    setSelectedOptions(selectedOptions);
+    setSelectedOptions(_selectedOptions);
 
     setData(adaptInitialData(options, selectedValues));
   }, []);
