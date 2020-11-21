@@ -7,8 +7,14 @@
   "author": "Smit Patel",
   "license": "MIT",
   "keywords": [
-    "Multi Select",
-    "React Component"
+    "react",
+    "reactjs",
+    "select",
+    "multi-select",
+    "javascript",
+    "typescript",
+    "ui-components",
+    "react-components"
   ],
   "repository": {
     "type": "git",
