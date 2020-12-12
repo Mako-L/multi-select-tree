@@ -15,7 +15,6 @@ export interface MultiSelectTreeComponentProps {
   label: string;
   disabled?: boolean;
   placeholder?: string;
-  isDarkMode?: boolean;
   data: DataInterface[];
   initialState?: DataInterface[];
   onChange: (selectedOptions: SelectedOptionInterface[]) => void;

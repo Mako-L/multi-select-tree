@@ -22,4 +22,12 @@ const MultiSelectTree: React.FC<MultiSelectTreeComponentProps> = (props) => (
   </DataProvider>
 );
 
+MultiSelectTree.defaultProps = {
+  disabled: false,
+  placeholder: 'Select...',
+  data: [],
+  initialState: [],
+  onChange: () => {},
+};
+
 export default MultiSelectTree;
