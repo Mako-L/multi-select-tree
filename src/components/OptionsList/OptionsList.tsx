@@ -4,24 +4,22 @@
 
 // Libraries
 import _noop from 'lodash/noop';
-import _isEmpty from 'lodash/isEmpty';
 import _memoize from 'lodash/memoize';
+import _isEmpty from 'lodash/isEmpty';
 import _partialRight from 'lodash/partialRight';
-import React, { ReactElement, useCallback } from 'react';
-
-// // base-ui
-// @ts-ignore
-import ChevronRight from 'baseui/icon/chevron-right';
-import { ListItem, ListItemLabel } from 'baseui/list';
-import { Button, KIND, SHAPE } from 'baseui/button';
-import { Checkbox } from 'baseui/checkbox';
-import { styled } from 'baseui';
+import React, { ReactElement } from 'react';
 
 // Interfaces
 import { DataInterface } from '../../interfaces';
 
 // Hooks
 import useOptionsList from './useOptionsList';
+
+// Icons
+import chevronRight from '../../assets/right-chevron.svg';
+
+// CSS
+import styles from './OptionsList.mod.css';
 
 type OptionProps = {
   label: string;
@@ -34,24 +32,9 @@ type OptionProps = {
 
 type OptionsListProps = { data: DataInterface; key: string; updateData: (data: DataInterface) => void };
 
-const getIconOverrides = _memoize((isOpen: boolean) => ({
-  Svg: {
-    style: {
-      transform: `rotate(${isOpen ? 90 : 0}deg)`,
-      transition: '0.4s',
-    },
-  },
+const getCleatIconStyles = _memoize((isOpen: boolean) => ({
+  transform: `rotate(${isOpen ? 90 : 0}deg)`,
 }));
-
-const getButtonOverrides = _memoize((hasChild: boolean) => ({
-  Root: {
-    style: {
-      opacity: hasChild ? 1 : 0,
-    },
-  },
-}));
-
-const LIST_OVERRIDES = { Root: { style: { backgroundColor: 'transparent' } } };
 
 const Option: React.FC<OptionProps> = ({
   label,
@@ -60,34 +43,23 @@ const Option: React.FC<OptionProps> = ({
   isSelected,
   toggleIsOpen,
   onOptionChange,
-}): ReactElement => {
-  const checkBoxRenderer = useCallback(() => <Checkbox checked={isSelected} onChange={onOptionChange} />, [
-    isSelected,
-    onOptionChange,
-  ]);
-
-  return (
-    <div className="flex items-center justify-between">
-      <ListItem endEnhancer={checkBoxRenderer} sublist overrides={LIST_OVERRIDES}>
-        <div className="flex items-center">
-          <Button
-            onClick={hasChild ? toggleIsOpen : _noop}
-            kind={KIND.minimal}
-            shape={SHAPE.circle}
-            overrides={getButtonOverrides(hasChild)}
-          >
-            <ChevronRight size={36} overrides={getIconOverrides(isOpen)} />
-          </Button>
-          <ListItemLabel>{label}</ListItemLabel>
-        </div>
-      </ListItem>
+}): ReactElement => (
+  <li className={styles.listItem}>
+    <div className={styles.buttonContainer}>
+      <button
+        onClick={hasChild ? toggleIsOpen : _noop}
+        style={{ opacity: hasChild ? 1 : 0 }}
+        className={styles.toggleChildButton}
+        tabIndex={hasChild ? 0 : -1}
+        aria-label={'Open Child SubTree'}
+      >
+        <img alt="Open Child" src={chevronRight} style={getCleatIconStyles(isOpen)} className={styles.toggleIcon} />
+      </button>
+      <span>{label}</span>
     </div>
-  );
-};
-
-const StyledDiv = styled('div', () => ({
-  paddingLeft: '15px',
-}));
+    <input type="checkbox" checked={isSelected} onChange={onOptionChange} className={styles.selectCheckbox} />
+  </li>
+);
 
 const OptionsList: React.FC<OptionsListProps> = ({ key, data, updateData }) => {
   const { isOpen, toggleIsOpen, onOptionChange, updateParentData } = useOptionsList(data, updateData);
@@ -104,13 +76,13 @@ const OptionsList: React.FC<OptionsListProps> = ({ key, data, updateData }) => {
         onOptionChange={onOptionChange}
         toggleIsOpen={toggleIsOpen}
       />
-      <StyledDiv>
+      <div className={styles.childContainer}>
         {hasChild && isOpen
           ? data.children.map((child, index) => (
               <OptionsList data={child} key={`${key}_${index}`} updateData={_partialRight(updateParentData, index)} />
             ))
           : null}
-      </StyledDiv>
+      </div>
     </>
   );
 };

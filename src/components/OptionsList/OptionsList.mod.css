@@ -1,0 +1,37 @@
+.listItem {
+  list-style: none;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+}
+
+.toggleChildButton {
+  background: transparent;
+  border: none;
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.toggleIcon {
+  width: 12px;
+  transition: 0.4s;
+}
+
+.selectCheckbox {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+
+.childContainer {
+  padding-left: 15px;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+}

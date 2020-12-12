@@ -10,11 +10,14 @@ import { DataInterface, SelectedOptionInterface, SelectedValues } from './interf
 
 export const adaptInitialData = (data: DataInterface[] = [], selectedValues: SelectedValues): DataInterface[] => {
   return data.map((dataOption) => {
+    const adaptedChildren = adaptInitialData(dataOption.children, selectedValues);
     return {
       ...dataOption,
       isOpen: false,
-      isSelected: selectedValues.has(dataOption.value),
-      children: adaptInitialData(dataOption.children, selectedValues),
+      isSelected:
+        selectedValues.has(dataOption.value) ||
+        (_isEmpty(adaptedChildren) ? false : adaptedChildren.every((childData) => childData.isSelected)),
+      children: adaptedChildren,
     };
   });
 };

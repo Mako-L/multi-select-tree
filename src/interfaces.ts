@@ -5,12 +5,16 @@
 export interface DataInterface {
   value: string | number;
   label: string;
+  additional?: any;
   isSelected: boolean;
   isOpen: boolean;
   children: DataInterface[];
 }
 
 export interface MultiSelectTreeComponentProps {
+  label: string;
+  disabled?: boolean;
+  placeholder?: string;
   isDarkMode?: boolean;
   data: DataInterface[];
   initialState?: DataInterface[];
@@ -21,6 +25,7 @@ export interface TreeStructureInterface {
   value: string | number;
   label: string;
   children?: TreeStructureInterface[];
+  additional?: any;
 }
 
 export interface SelectedOptionInterface {

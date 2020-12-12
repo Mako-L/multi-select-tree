@@ -25,9 +25,11 @@ const useOptionsList = (data: DataInterface, updateData: (data: DataInterface) =
 
   const updateParentData = useCallback(
     (updatedData, index) => {
+      const updatedChildren = data.children.map((childData, id) => (id === index ? updatedData : childData));
       updateData({
         ...data,
-        children: data.children.map((childData, id) => (id === index ? updatedData : childData)),
+        isSelected: updatedChildren.every((childData) => childData.isSelected),
+        children: updatedChildren,
       });
     },
     [updateData, data],

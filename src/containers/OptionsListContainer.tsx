@@ -12,6 +12,9 @@ import OptionsList from '../components/OptionsList/OptionsList';
 // Context
 import { DataContext } from '../context/DataContext';
 
+// CSS
+import styles from './OptionsListContainer.mod.css';
+
 const OptionsListContainer = () => {
   const { data, setData } = useContext(DataContext);
 
@@ -23,11 +26,11 @@ const OptionsListContainer = () => {
   );
 
   return (
-    <div style={{ border: '1px solid #aaa', borderRadius: '5px', background: '#f6f6f6' }}>
+    <ul className={styles.optionsContainer}>
       {data.map((option, index) => (
         <OptionsList key={`${index}`} data={option} updateData={_partialRight(updateData, index)} />
       ))}
-    </div>
+    </ul>
   );
 };
 
