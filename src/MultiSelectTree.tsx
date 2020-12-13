@@ -4,6 +4,7 @@
 
 // Libraries
 import React from 'react';
+import _noop from 'lodash/noop';
 
 // Components
 import MultiSelectTreeComponent from './components/MultiSelectTreeComponent/MultiSelectTreeComponent';
@@ -27,7 +28,7 @@ MultiSelectTree.defaultProps = {
   placeholder: 'Select...',
   data: [],
   initialState: [],
-  onChange: () => {},
+  onChange: _noop,
 };
 
 export default MultiSelectTree;
